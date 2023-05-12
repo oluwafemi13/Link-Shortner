@@ -2,10 +2,10 @@
 
 namespace Web.Model
 {
-    public class ResultModel
+    public class OutputUrl
     {
         public int Id { get; set; }
-        public string OutputUrl { get; set; }
+        public string ResultUrl { get; set; }
         public string DeleteToken { get; set; }
         public DateTime DateCreated { get; set; }
 

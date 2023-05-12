@@ -1,6 +1,6 @@
 ﻿namespace Web.Model
 {
-    public class RequestModel
+    public class Response
     {
     }
 }
