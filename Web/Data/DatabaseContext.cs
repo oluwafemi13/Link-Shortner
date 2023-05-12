@@ -1,10 +1,11 @@
-﻿using Web.Model;
+﻿using Microsoft.EntityFrameworkCore;
+using Web.Model;
 
 namespace Web.Data
 {
     public class DatabaseContext: DbContext
     {
-        public DatabaseContext()
+        public DatabaseContext(DbContextOptions<DatabaseContext> options): base(options)
         {
 
         }

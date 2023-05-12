@@ -1,4 +1,6 @@
-﻿using System.Text.Json.Serialization;
+﻿using Newtonsoft.Json;
+using System.Text;
+using System.Text.Json.Serialization;
 using Web.Model;
 using Web.Services.IShortnerService;
 using Web.Static_Data;
@@ -19,7 +21,7 @@ namespace Web.Services
         }
 
 
-        public async Task SendAsync(ApiRequest request)
+        public async Task<object> SendAsync(ApiRequest request)
         {
             try
             {
@@ -30,7 +32,7 @@ namespace Web.Services
                 client.DefaultRequestHeaders.Clear();
                 if(request.Data != null)
                 {
-                    message.Content = new StringContent(JsonConvert.SerializeObject(request.Data)Encoding.UTF8,"application/json");
+                    message.Content = new StringContent(JsonConvert.SerializeObject(request.Data),Encoding.UTF8,"application/json");
                 }
                 HttpResponseMessage response = null;
                 switch (request.Method)
@@ -54,15 +56,21 @@ namespace Web.Services
                 response = await client.SendAsync(message);
                 var apiContent = await response.Content.ReadAsStringAsync();
                 var finalResponse = JsonConvert.DeserializeObject(apiContent);
-               
+                return finalResponse;
                    
 
             }
-          
             catch (Exception ex)
             {
 
-                throw;
+                var response = new Response
+                {
+                    ErrorMessage = ex.Message,
+                    DisplayMessage = "",
+                    IsSuccess = false
+                    
+                };
+                return response;
             }
         }
 
