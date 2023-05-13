@@ -1,16 +1,24 @@
 using Microsoft.EntityFrameworkCore;
-using Web.Data;
+using Web;
+using Web.Services;
+using Web.Services.IShortnerService;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 
-var app = builder.Build();
-
-builder.Services.AddDbContext<DatabaseContext>(options =>
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
 );
+
+var app = builder.Build();
+
+
+
+builder.Services.AddScoped<IBaseService, BaseService>();
+builder.Services.AddTransient<IService, Service>();
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -28,6 +36,6 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapRazorPages();
-app.MapControllers();
+//app.MapControllers();
 
 app.Run();

@@ -10,8 +10,9 @@ namespace Web.Model
         public DateTime DateCreated { get; set; }
 
         //public DateTime TokenDuration { get; set; }
-        [ForeignKey("InputModelId")]
-        public int InputModelId { get; set; }
+        [ForeignKey("InputUrl")]
+        public int InputUrlId { get; set; }
+        public InputUrl inputUrl { get; set; }
 
     }
 }

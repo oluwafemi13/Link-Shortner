@@ -56,7 +56,7 @@ namespace Web.Services
                 response = await client.SendAsync(message);
                 var apiContent = await response.Content.ReadAsStringAsync();
                 var finalResponse = JsonConvert.DeserializeObject(apiContent);
-                return finalResponse;
+                return Task.FromResult(finalResponse);
                    
 
             }
