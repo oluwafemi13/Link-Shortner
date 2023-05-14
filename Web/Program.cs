@@ -12,12 +12,13 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
 );
 
+builder.Services.AddScoped<IBaseService, BaseService>();
+builder.Services.AddTransient<IService, Service>();
+builder.Services.AddHttpClient();
 var app = builder.Build();
 
 
 
-builder.Services.AddScoped<IBaseService, BaseService>();
-builder.Services.AddTransient<IService, Service>();
 
 
 // Configure the HTTP request pipeline.

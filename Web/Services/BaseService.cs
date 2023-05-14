@@ -12,11 +12,13 @@ namespace Web.Services
        
         public OutputUrl responseModel { get; set; }
         public IHttpClientFactory _httpClient { get; set; }
+        ConfigurationManager config;
 
         public BaseService(IHttpClientFactory httpClient)
         {
             _httpClient = httpClient;
             this.responseModel = new OutputUrl();
+            this.config = new ConfigurationManager();
             
         }
 
@@ -28,6 +30,7 @@ namespace Web.Services
                 var client = _httpClient.CreateClient("UrlShortner");
                 HttpRequestMessage message = new HttpRequestMessage();
                 message.Headers.Add("Accept", "application/json");
+               // message.Headers.Add("", "application/Json") ; //api key
                 message.RequestUri = new Uri(request.Url);
                 client.DefaultRequestHeaders.Clear();
                 if(request.Data != null)
@@ -70,7 +73,10 @@ namespace Web.Services
                     IsSuccess = false
                     
                 };
-                return response;
+                
+                var res = JsonConvert.SerializeObject(response);
+                var apiResponse = JsonConvert.DeserializeObject(res);
+                return apiResponse;
             }
         }
 

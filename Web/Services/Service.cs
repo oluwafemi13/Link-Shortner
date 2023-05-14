@@ -3,8 +3,13 @@ using Web.Services.IShortnerService;
 
 namespace Web.Services
 {
-    public class Service : IService
+    public class Service :BaseService, IService
     {
+        public Service(IHttpClientFactory httpClient) : base(httpClient)
+        {
+            this._httpClient = httpClient;
+        }
+
         public Task<OutputUrl> CreateUrl(InputUrl url)
         {
             throw new NotImplementedException();
