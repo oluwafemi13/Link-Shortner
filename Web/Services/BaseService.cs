@@ -23,7 +23,7 @@ namespace Web.Services
         }
 
 
-        public async Task<object> SendAsync(ApiRequest request)
+        public async Task<T> SendAsync<T>(ApiRequest request)
         {
             try
             {
@@ -59,7 +59,7 @@ namespace Web.Services
                 response = await client.SendAsync(message);
                 var apiContent = await response.Content.ReadAsStringAsync();
                 var finalResponse = JsonConvert.DeserializeObject(apiContent);
-                return Task.FromResult(finalResponse);
+                return (T)finalResponse;
                    
 
             }
@@ -76,7 +76,7 @@ namespace Web.Services
                 
                 var res = JsonConvert.SerializeObject(response);
                 var apiResponse = JsonConvert.DeserializeObject(res);
-                return apiResponse;
+                return (T)apiResponse;
             }
         }
 

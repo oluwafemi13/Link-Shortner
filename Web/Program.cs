@@ -2,9 +2,11 @@ using Microsoft.EntityFrameworkCore;
 using Web;
 using Web.Services;
 using Web.Services.IShortnerService;
+using Web.Static_Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var config = new ConfigurationManager();
 // Add services to the container.
 builder.Services.AddRazorPages();
 
@@ -12,9 +14,11 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
 );
 
+builder.Services.AddHttpClient<ILinkService, LinkService>();
 builder.Services.AddScoped<IBaseService, BaseService>();
-builder.Services.AddTransient<IService, Service>();
-builder.Services.AddHttpClient();
+builder.Services.AddScoped<ILinkService, LinkService>();
+SD.ApiBase = config["ServiceUrls:LinkShortner"];
+
 var app = builder.Build();
 
 

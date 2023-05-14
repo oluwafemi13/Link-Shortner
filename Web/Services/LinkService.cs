@@ -3,16 +3,19 @@ using Web.Services.IShortnerService;
 
 namespace Web.Services
 {
-    public class Service :BaseService, IService
+    public class LinkService :BaseService, ILinkService
     {
-        public Service(IHttpClientFactory httpClient) : base(httpClient)
+        public LinkService(IHttpClientFactory httpClient) : base(httpClient)
         {
             this._httpClient = httpClient;
         }
 
-        public Task<OutputUrl> CreateUrl(InputUrl url)
+        public async Task<T> CreateUrl<T>(InputUrl url)
         {
-            throw new NotImplementedException();
+            return await this.SendAsync<T>(new ApiRequest()
+            {
+
+            });
         }
 
         public Task<bool> DeleteUrl(InputUrl url)
