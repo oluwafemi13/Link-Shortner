@@ -30,13 +30,21 @@ namespace Web.Services
                 var client = _httpClient.CreateClient("UrlShortner");
                 HttpRequestMessage message = new HttpRequestMessage();
                 message.Headers.Add("Accept", "application/json");
+                message.Headers.Add("content-type", "application/x-www-form-urlencoded");
+                message.Headers.Add("X-RapidAPI-Key", "b4374a8c78mshb429bc2905e08bfp11b759jsn66ffbc18b94b");
+                message.Headers.Add("X-RapidAPI-Host", "url-shortener-service.p.rapidapi.com");
                // message.Headers.Add("", "application/Json") ; //api key
                 message.RequestUri = new Uri(request.Url);
                 client.DefaultRequestHeaders.Clear();
                 if(request.Data != null)
                 {
-                    message.Content = new StringContent(JsonConvert.SerializeObject(request.Data),Encoding.UTF8,"application/json");
-                }
+                    //message.Content = new StringContent(JsonConvert.SerializeObject(request.Data),Encoding.UTF8,"application/json");
+                    message.Content = new FormUrlEncodedContent(new Dictionary<string, string>
+                    {
+                        { "url", $"{request.Data}" },
+                        });
+                    };
+                         
                 HttpResponseMessage response = null;
                 switch (request.Method)
                 {

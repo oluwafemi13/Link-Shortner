@@ -11,7 +11,14 @@ var config = new ConfigurationManager();
 builder.Services.AddRazorPages();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
+options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
+sqlServerOptionsAction: sqlOptions =>
+{
+    sqlOptions.EnableRetryOnFailure(
+        maxRetryCount: 10,
+        maxRetryDelay: TimeSpan.FromSeconds(30),
+        errorNumbersToAdd: null);
+})
 );
 
 builder.Services.AddHttpClient<ILinkService, LinkService>();

@@ -1,5 +1,6 @@
 ﻿using Web.Model;
 using Web.Services.IShortnerService;
+using Web.Static_Data;
 
 namespace Web.Services
 {
@@ -14,31 +15,33 @@ namespace Web.Services
         {
             return await this.SendAsync<T>(new ApiRequest()
             {
-
+                Url = SD.ApiBase,
+                Data = url.UrlInput + "/shorten",
+                Method=ApiMethods.POST
             });
         }
 
-        public Task<bool> DeleteUrl(InputUrl url)
+        public Task<T> DeleteUrl<T>(InputUrl url)
         {
             throw new NotImplementedException();
         }
 
-        public Task<bool> DeleteUrlById(int id)
+        public Task<T> DeleteUrlById<T>(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<object>> GetAllUrlGenerated()
+        public Task<IEnumerable<T>> GetAllUrlGenerated<T>()
         {
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<object>> GetUrlBySlug(string slug)
+        public Task<IEnumerable<T>> GetUrlBySlug<T>(string slug)
         {
             throw new NotImplementedException();
         }
 
-        public Task<OutputUrl> UpdateUrl(InputUrl url)
+        public Task<T> UpdateUrl<T>(InputUrl url)
         {
             throw new NotImplementedException();
         }
