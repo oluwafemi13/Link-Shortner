@@ -15,15 +15,19 @@ namespace Web.Pages
         }
 
         public OutputUrl url { get; set; }
+        public InputUrl input { get; set; }
 
         public void OnGet()
         {
 
         }
 
-       /* public async Task<InputUrl> OnPost()
+       /* public async Task<OutputUrl> OnPost()
         {
-            
+            if(ModelState.IsValid)
+            {
+
+            }
         }*/
     }
 }

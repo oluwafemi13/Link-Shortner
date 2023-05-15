@@ -22,13 +22,13 @@
             <h1>URL Shortener</h1>
         </a>
         <br />
-        <form>
+        <form method="post" asp-page="Index">
             <div>
-                <input type="url" name="url" placeholder="enter a url" required />
+                <input type="url" name="url" placeholder="enter a url" required asp-for="@Model.input.UrlInput"/>
                 <input type="text"
                        name="slug"
                        placeholder="enter a slug"
-                       style="margin-top: 10px;" />
+                       style="margin-top: 10px;" asp-for="@Model.input.Slug"/>
             </div>
             <br />
             <input type="submit" value="shorten!" />
