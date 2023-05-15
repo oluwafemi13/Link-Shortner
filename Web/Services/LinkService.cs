@@ -15,25 +15,16 @@ namespace Web.Services
             _db = db;
         }
 
-        public async Task<T> CreateUrl<T>(InputUrl url)
+        public async Task<string> CreateUrl<T>(InputUrl url)
         {
-            var search = await  _db.Urls.FindAsync(url.UrlInput);
-            if (search != null)
-            {
-                new Response
-                {
-                    DisplayMessage = "Url Already Exist",
-                    IsSuccess = false,
-                    ErrorMessage = string.Empty
-                };
-            }
-
-             await _db.Urls.AddAsync(url);
-            await _db.SaveChangesAsync();
+           
+             /*await _db.Urls.AddAsync(url);
+            await _db.SaveChangesAsync();*/
             return await this.SendAsync<T>(new ApiRequest()
             {
-                Url = SD.ApiBase,
-                Data = url.UrlInput + "/shorten",
+                Url = SD.ApiBase +"shorten",
+                //Url = url.UrlInput,
+                Data = url.UrlInput,
                 Method=ApiMethods.POST
             });
 

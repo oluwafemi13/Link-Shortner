@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.ComponentModel.DataAnnotations;
 using Web.Model;
 using Web.Services.IShortnerService;
 
@@ -17,8 +19,19 @@ namespace Web.Pages
             _linkService = linkService;
         }
 
-        public OutputUrl url { get; set; }
-        public InputUrl input { get; set; }
+
+        public class InputModel
+        {
+            public int id { get; set; }
+            [Required]
+            public string Url { get; set; }
+            [ValidateNever]
+            [Required]
+            public string Slug { get; set; }
+
+        }
+        //public OutputUrl url { get; set; }
+        public InputModel input { get; set; }
 
         public void OnGet()
         {
@@ -29,14 +42,21 @@ namespace Web.Pages
         {
             if (ModelState.IsValid)
             {
-                var value = input.UrlInput;
+                var value = input.Url;
                 if (value == null)
                 {
                     RedirectToPage("Index");
                 }
+                var inputUrl = new InputUrl
+                {
+                    Id = input.id,
+                    Slug = input.Slug,
+                    UrlInput = input.Url
+                };
+                var result =  _linkService.CreateUrl<InputUrl>(inputUrl);
 
             }
-            return RedirectToPage("Delete");
+            return RedirectToPage("Result");
         }
     }
 }

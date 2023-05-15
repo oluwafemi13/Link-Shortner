@@ -24,7 +24,7 @@ sqlServerOptionsAction: sqlOptions =>
 builder.Services.AddHttpClient<ILinkService, LinkService>();
 builder.Services.AddScoped<IBaseService, BaseService>();
 builder.Services.AddScoped<ILinkService, LinkService>();
-SD.ApiBase = config["ServiceUrls:LinkShortner"];
+//SD.ApiBase = config["ServiceUrls:LinkShortner"];
 
 var app = builder.Build();
 

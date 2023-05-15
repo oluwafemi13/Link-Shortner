@@ -5,6 +5,6 @@ namespace Web.Services.IShortnerService
     public interface IBaseService: IDisposable
     {
         //OutputUrl responseModel { get; set; }
-        Task<T> SendAsync<T>(ApiRequest request);
+        Task<string> SendAsync<T>(ApiRequest request);
     }
 }
