@@ -16,7 +16,7 @@ namespace Web.Model
         public string UrlInput { get; set; }
         //public string OutputUrl { get; set; }
         //public string DeleteToken { get; set; }
-
-        public OutputUrl outputUrl { get; set; }
+        /*[ValidateNever]
+        public OutputUrl outputUrl { get; set; }*/
     }
 }

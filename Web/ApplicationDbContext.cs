@@ -16,11 +16,11 @@ public class ApplicationDbContext : DbContext
 
 
 
-        modelBuilder.Entity<OutputUrl>().HasOne<InputUrl>(i=>i.inputUrl)
+        /*modelBuilder.Entity<OutputUrl>().HasOne<InputUrl>(i=>i.inputUrl)
                                   .WithOne(o=>o.outputUrl)
                                   
                                   .OnDelete(DeleteBehavior.Cascade);
-
+*/
 
     }
 
