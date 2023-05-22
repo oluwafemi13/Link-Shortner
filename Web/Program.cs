@@ -6,7 +6,7 @@ using Web.Static_Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var config = new ConfigurationManager();
+//var config = new ConfigurationManager();
 // Add services to the container.
 builder.Services.AddRazorPages();
 
@@ -24,7 +24,7 @@ sqlServerOptionsAction: sqlOptions =>
 builder.Services.AddHttpClient<ILinkService, LinkService>();
 builder.Services.AddScoped<IBaseService, BaseService>();
 builder.Services.AddScoped<ILinkService, LinkService>();
-//SD.ApiBase = config["ServiceUrls:LinkShortner"];
+/*SD.ApiBase = builder.Configuration("");*/
 
 var app = builder.Build();
 

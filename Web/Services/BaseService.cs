@@ -9,30 +9,40 @@ namespace Web.Services
 {
     public class BaseService : IBaseService
     {
-       
+        private IHttpClientFactory httpClient;
+
         public OutputUrl responseModel { get; set; }
         public IHttpClientFactory _httpClient { get; set; }
-        ConfigurationManager config;
+        public IConfiguration _configuration { get; set; }
+        //ConfigurationManager config;
 
-        public BaseService(IHttpClientFactory httpClient)
+        public BaseService(IHttpClientFactory httpClient, IConfiguration configuration)
         {
             _httpClient = httpClient;
             this.responseModel = new OutputUrl();
-            this.config = new ConfigurationManager();
+           // this.config = new ConfigurationManager();
+           _configuration= configuration;
+
             
         }
 
+        public BaseService(IHttpClientFactory httpClient)
+        {
+            this.httpClient = httpClient;
+        }
 
         public async Task<string> SendAsync<T>(ApiRequest request)
         {
             try
             {
+                
                 var client = _httpClient.CreateClient("UrlShortner");
+                var apiKey = _configuration["ServiceUrls: X-RapidAPI-Key"];
                 HttpRequestMessage message = new HttpRequestMessage();
                 message.Headers.Add("Accept", "application/json");
-                message.Headers.Add("content-type", "application/x-www-form-urlencoded");
-                message.Headers.Add("X-RapidAPI-Key", "b4374a8c78mshb429bc2905e08bfp11b759jsn66ffbc18b94b");
-                message.Headers.Add("X-RapidAPI-Host", "url-shortener-service.p.rapidapi.com");
+               // message.Headers.Add("content-type": "application/x-www-form-urlencoded");
+                message.Headers.Add("X-RapidAPI-Key",apiKey);
+               // message.Headers.Add("X-RapidAPI-Host": "url-shortener-service.p.rapidapi.com");
                 // message.Headers.Add("", "application/Json") ; //api key
                 message.RequestUri = new Uri(request.Url);
                 client.DefaultRequestHeaders.Clear();

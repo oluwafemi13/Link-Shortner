@@ -49,11 +49,16 @@ namespace Web.Pages
                 }
                 var inputUrl = new InputUrl
                 {
-                    Id = input.id,
+                    
                     Slug = input.Slug,
                     UrlInput = input.Url
                 };
                 var result =  _linkService.CreateUrl<InputUrl>(inputUrl);
+                if(result == null)
+                {
+                    RedirectToPage("Index");
+                }
+               
 
             }
             return RedirectToPage("Result");

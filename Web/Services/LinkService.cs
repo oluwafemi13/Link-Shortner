@@ -7,7 +7,8 @@ namespace Web.Services
 {
     public class LinkService :BaseService, ILinkService
     {
-        private readonly ApplicationDbContext _db;
+        private ApplicationDbContext _db;
+        
 
         public LinkService(IHttpClientFactory httpClient, ApplicationDbContext db) : base(httpClient)
         {
@@ -17,9 +18,14 @@ namespace Web.Services
 
         public async Task<string> CreateUrl<T>(InputUrl url)
         {
-           
-             /*await _db.Urls.AddAsync(url);
-            await _db.SaveChangesAsync();*/
+            var input = new InputUrl
+            {
+                Slug = url.Slug,
+                UrlInput = url.UrlInput
+
+            };
+             await _db.Urls.AddAsync(input);
+            await _db.SaveChangesAsync();
             return await this.SendAsync<T>(new ApiRequest()
             {
                 Url = SD.ApiBase +"shorten",
